@@ -1,0 +1,38 @@
+name_keys: ['title', 'start_page', 'end_page']
+
+defaults:
+  title: 'winemag'
+
+matrix:
+  - start_page: 1
+    end_page: 800
+  - start_page: 801
+    end_page: 1600
+  - start_page: 1601
+    end_page: 2400
+  - start_page: 2401
+    end_page: 3200
+  - start_page: 3201
+    end_page: 4000
+  - start_page: 4001
+    end_page: 4800
+  - start_page: 4801
+    end_page: 5600
+  - start_page: 5601
+    end_page: 6400
+  - start_page: 6401
+    end_page: 7200
+  - start_page: 7201
+    end_page: 8000
+  - start_page: 8001
+    end_page: 8800
+  - start_page: 8801
+    end_page: 9600
+  - start_page: 9601
+    end_page: 10400
+  - start_page: 10401
+    end_page: 11200
+  - start_page: 11201
+    end_page: 12000
+  - start_page: 12001
+    end_page: 12800

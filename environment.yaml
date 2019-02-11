@@ -1,0 +1,12 @@
+name: winemag
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  - pip
+  - pip:
+    - numpy>=1.15
+    - pandas>=0.23
+    - jupyter>=1.0
+    - Scrapy>=1.6
+    - scrapy-fake-useragent>=1.1
