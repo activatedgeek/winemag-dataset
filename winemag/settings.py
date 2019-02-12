@@ -23,7 +23,7 @@ ROBOTSTXT_OBEY = False
 COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
-#TELNETCONSOLE_ENABLED = False
+TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
@@ -52,9 +52,9 @@ RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 403, 408, 110]
 #}
 
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'winemag.pipelines.WinemagPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'winemag.pipelines.DuplicateURLsPipeline': 100,
+}
 
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 AUTOTHROTTLE_ENABLED = True

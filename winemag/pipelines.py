@@ -5,7 +5,17 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
+from scrapy.exceptions import DropItem
 
-class WinemagPipeline(object):
+
+class DuplicateURLsPipeline(object):
+
+    def __init__(self):
+        self.urls_seen = set()
+
     def process_item(self, item, spider):
-        return item
+        if item['meta_url'] in self.urls_seen:
+            raise DropItem('URL processed. Dropping {}'.format(item['meta_url']))
+        else:
+            self.urls_seen.add(item['meta_url'])
+            return item
