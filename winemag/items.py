@@ -35,36 +35,23 @@ def vintage_processor(value):
 
 
 class ReviewItem(scrapy.Item):
-    meta_url = scrapy.Field()
-    meta_page = scrapy.Field(
-        output_processor=TakeFirst(),
-    )
-    meta_item = scrapy.Field(
-        output_processor=TakeFirst(),
-    )
+    meta_url = scrapy.Field(output_processor=TakeFirst())
+    meta_page = scrapy.Field(output_processor=TakeFirst())
+    meta_item = scrapy.Field(output_processor=TakeFirst())
 
-    title = scrapy.Field()
-    rating = scrapy.Field()
-    description = scrapy.Field()
+    title = scrapy.Field(output_processor=TakeFirst())
+    rating = scrapy.Field(output_processor=TakeFirst())
+    description = scrapy.Field(output_processor=TakeFirst())
 
-    price = scrapy.Field(
-        input_processor=price_processor,
-        output_processor=TakeFirst(),
-    )
-    designation = scrapy.Field()
-    varietal = scrapy.Field()
-    country = scrapy.Field()
-    region = scrapy.Field()
-    subregion = scrapy.Field()
-    subsubregion = scrapy.Field()
-    winery = scrapy.Field()
-    vintage = scrapy.Field(
-        input_processor=vintage_processor,
-        output_processor=TakeFirst(),
-    )
+    price = scrapy.Field(input_processor=price_processor, output_processor=TakeFirst())
+    designation = scrapy.Field(output_processor=TakeFirst())
+    varietal = scrapy.Field(output_processor=TakeFirst())
+    country = scrapy.Field(output_processor=TakeFirst())
+    region = scrapy.Field(output_processor=TakeFirst())
+    subregion = scrapy.Field(output_processor=TakeFirst())
+    subsubregion = scrapy.Field(output_processor=TakeFirst())
+    winery = scrapy.Field(output_processor=TakeFirst())
+    vintage = scrapy.Field(input_processor=vintage_processor, output_processor=TakeFirst())
 
-    alcohol = scrapy.Field(
-        input_processor=alcohol_processor,
-        output_processor=TakeFirst(),
-    )
-    category = scrapy.Field()
+    alcohol = scrapy.Field(input_processor=alcohol_processor, output_processor=TakeFirst())
+    category = scrapy.Field(output_processor=TakeFirst())
