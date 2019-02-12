@@ -26,13 +26,14 @@ class WinemagSpider(scrapy.Spider):
       review_listing = review_item.css('a.review-listing')
       url = review_listing.attrib.get('href')
 
-      yield scrapy.Request(url=url, callback=self.parse_single,
+      yield scrapy.Request(url=url, callback=WinemagSpider.parse_single,
                            meta=dict(
                              **response.meta,
                              item=idx
                            ))
 
-  def parse_single(self, response):
+  @staticmethod
+  def parse_single(response):
     loader = ItemLoader(item=ReviewItem(), response=response)
 
     title = response.css('div.article-title::text').get()

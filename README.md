@@ -23,7 +23,7 @@ At this stage, the following attributes are being collected.
 | _subregion_  | `str`, `NULL`  | Sub-region within a region  | Morgon  |
 | _subsubregion_  | `str`, `NULL`  | Detailed region  |  |
 | _winery_ * | `str`  |  Name of producer/winery | Laurent Gauthier |
-| _vintage_ *  | `int`  | Vintage (Year) of production  | 2016  |
+| _vintage_  | `int`, `NULL`  | Vintage (Year) of production  | 2016  |
 | _alcohol_  | `float`, `NULL`  | Alcohol By Volume (ABV) in %  | 13.5  |
 | _category_ | `str`  |  Category of wine | Red |
 
