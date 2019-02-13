@@ -10,8 +10,6 @@ At this stage, the following attributes are being collected.
 | **Field**  | **Type**  | **Description**  | **Example**  |
 |---|---|---|---|
 | _meta_url_  | `str`  | Full URL to the review  |  [https://www.winemag.com/buying-guide/laurent-...-morgon/](https://www.winemag.com/buying-guide/laurent-gauthier-2016-vieilles-vignes-cote-du-py-morgon/) |
-| _meta_page_  | `int`  | Page number in search  |  42 |
-| _meta_item_  | `int`  |  Item number in page (zero-indexed) | 5  |
 | _title_  | `str` | Title/Name of the wine  | Laurent Gauthier 2016 Vieilles Vignes Côte du Py (Morgon)  |
 | _rating_  | `int` | Wine rating on the 100-point scale  | 91 |
 | _description_  | `str` | Review of the wine  | Wood aging has given spice to this rich, structured wine. Tannins and generous black fruits show through the still-young structure. This powerful wine, from one of the top vineyards in Morgon, will age well. Drink from 2020. |

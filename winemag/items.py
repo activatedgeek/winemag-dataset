@@ -36,8 +36,6 @@ def vintage_processor(value):
 
 class ReviewItem(scrapy.Item):
     meta_url = scrapy.Field(output_processor=TakeFirst())
-    meta_page = scrapy.Field(output_processor=TakeFirst())
-    meta_item = scrapy.Field(output_processor=TakeFirst())
 
     title = scrapy.Field(output_processor=TakeFirst())
     rating = scrapy.Field(output_processor=TakeFirst())

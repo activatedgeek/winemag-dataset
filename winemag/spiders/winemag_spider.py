@@ -15,22 +15,14 @@ class WinemagSpider(scrapy.Spider):
     end_page = min(end_page, self.total_pages)
 
     for page in range(start_page, end_page + 1):
-      yield scrapy.Request(url=self.url_prefix.format(page),
-                           callback=self.parse,
-                           meta=dict(
-                             page=page
-                           ))
+      yield scrapy.Request(url=self.url_prefix.format(page), callback=self.parse)
 
   def parse(self, response):
     for idx, review_item in enumerate(response.css('li.review-item:not(.search-results-ad)')):
       review_listing = review_item.css('a.review-listing')
       url = review_listing.attrib.get('href')
 
-      yield scrapy.Request(url=url, callback=WinemagSpider.parse_single,
-                           meta=dict(
-                             **response.meta,
-                             item=idx
-                           ))
+      yield scrapy.Request(url=url, callback=WinemagSpider.parse_single)
 
   @staticmethod
   def parse_single(response):
@@ -65,8 +57,6 @@ class WinemagSpider(scrapy.Spider):
     category = s_info[s_info_fields.index('category')].css('div.info span::text').get()
 
     loader.add_value('meta_url', response.url)
-    loader.add_value('meta_page', response.meta['page'])
-    loader.add_value('meta_item', response.meta['item'])
 
     loader.add_value('title', title)
     loader.add_value('rating', rating)

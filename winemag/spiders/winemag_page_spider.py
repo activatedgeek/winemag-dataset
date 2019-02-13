@@ -17,8 +17,4 @@ class WinemagPageSpider(scrapy.Spider):
           url = self.url_prefix.format(page.strip())
           print(url)
           yield scrapy.Request(url=url,
-                               callback=WinemagSpider.parse_single,
-                               meta=dict(
-                                 page=-1,
-                                 item=-1
-                               ))
+                               callback=WinemagSpider.parse_single)
