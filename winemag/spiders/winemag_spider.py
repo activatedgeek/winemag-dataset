@@ -1,7 +1,7 @@
 import scrapy
 from scrapy.loader import ItemLoader
 
-from winemag.items import ReviewItem
+from winemag.items import PageItem
 
 
 class WinemagSpider(scrapy.Spider):
@@ -26,58 +26,33 @@ class WinemagSpider(scrapy.Spider):
 
   @staticmethod
   def parse_single(response):
-    loader = ItemLoader(item=ReviewItem(), response=response)
+    loader = ItemLoader(item=PageItem(), response=response)
 
-    title = response.css('div.article-title::text').get()
-    rating = response.css('#points::text').get()
-    description = response.css('p.description::text').get()
+    loader.add_value('url', response.url)
 
-    p_info_fields = [
-      f.lower()
-      for f in response.css('ul.primary-info div.info-label span::text').getall()
-    ]
+    loader.add_css('title', 'div.article-title')
+    loader.add_css('vintage', 'div.article-title')
+    loader.add_css('rating', '#points')
+    loader.add_css('description', 'p.description')
 
-    p_info = response.css('ul.primary-info div.info')
+    primary_info_loader = loader.nested_css('ul.primary-info')
+    appellation_loader = primary_info_loader.nested_css('li.row:nth-last-child(2) div.info')
 
-    price = p_info[p_info_fields.index('price')].css('div.info span::text').get()
-    if 'designation' in p_info_fields:
-      designation = p_info[p_info_fields.index('designation')].css('div.info span::text').get()
-    varietal = p_info[p_info_fields.index('variety')].css('div.info a::text').get()
-    appellation = p_info[p_info_fields.index('appellation')].css('span a::text').getall()
-    winery = p_info[p_info_fields.index('winery')].css('div.info a::text').get()
+    primary_info_loader.add_css('price', 'li.row:nth-child(1) div.info')
+    if len(primary_info_loader.selector.css('li.row')) == 5:
+      primary_info_loader.add_css('designation', 'li.row:nth-child(2) div.info')
+    primary_info_loader.add_css('varietal', 'li.row:nth-last-child(3) div.info')
 
-    s_info_fields = [
-      f.lower()
-      for f in response.css('ul.secondary-info div.info-label span::text').getall()
-    ]
+    appellation_loader.add_css('subsubregion', 'span a:nth-last-child(4)')
+    appellation_loader.add_css('subregion', 'span a:nth-last-child(3)')
+    appellation_loader.add_css('region', 'span a:nth-last-child(2)')
+    appellation_loader.add_css('country', 'span a:nth-last-child(1)')
 
-    s_info = response.css('ul.secondary-info div.info')
+    primary_info_loader.add_css('winery', 'li.row:nth-last-child(1) div.info')
 
-    alcohol = s_info[s_info_fields.index('alcohol')].css('div.info span::text').get()
-    category = s_info[s_info_fields.index('category')].css('div.info span::text').get()
+    secondary_info_loader = loader.nested_css('ul.secondary-info')
 
-    loader.add_value('meta_url', response.url)
-
-    loader.add_value('title', title)
-    loader.add_value('rating', rating)
-    loader.add_value('description', description)
-
-    loader.add_value('price', price)
-    if 'designation' in p_info_fields:
-      loader.add_value('designation', designation)
-    loader.add_value('varietal', varietal)
-    if len(appellation):
-      loader.add_value('country', appellation[-1])
-    if len(appellation) > 1:
-      loader.add_value('region', appellation[-2])
-    if len(appellation) > 2:
-      loader.add_value('subregion', appellation[-3])
-    if len(appellation) > 3:
-      loader.add_value('subsubregion', appellation[-4])
-    loader.add_value('winery', winery)
-    loader.add_value('vintage', title)
-
-    loader.add_value('alcohol', alcohol)
-    loader.add_value('category', category)
+    secondary_info_loader.add_css('alcohol', 'li.row:nth-child(1) div.info')
+    secondary_info_loader.add_css('category', 'li.row:nth-child(3) div.info')
 
     yield loader.load_item()

@@ -14,8 +14,8 @@ class DuplicateURLsPipeline(object):
         self.urls_seen = set()
 
     def process_item(self, item, spider):
-        if item['meta_url'] in self.urls_seen:
-            raise DropItem('URL processed. Dropping {}'.format(item['meta_url']))
+        if item['url'] in self.urls_seen:
+            raise DropItem('URL processed. Dropping {}'.format(item['url']))
         else:
-            self.urls_seen.add(item['meta_url'])
+            self.urls_seen.add(item['url'])
             return item

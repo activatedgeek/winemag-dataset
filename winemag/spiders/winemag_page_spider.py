@@ -15,6 +15,5 @@ class WinemagPageSpider(scrapy.Spider):
       with open(self.f, 'r') as f:
         for page in f:
           url = self.url_prefix.format(page.strip())
-          print(url)
           yield scrapy.Request(url=url,
                                callback=WinemagSpider.parse_single)
