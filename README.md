@@ -54,6 +54,18 @@ This command will scrape pages 1 to 10 of the reviews.
 **WARNING**: Careful with the scraping limits. You are advised to scrape only a 
 few pages per spider per session.
 
+With the current [settings.py](./winemag/settings.py), it takes about ~320 hours
+(~20 hours each for 16 spiders) to collect ~250k reviews.
+
+## Access Data
+
+Download the raw data [here](http://bit.ly/winemag-raw-250k). 
+
+### Notes
+
+* Some vintages have been wrongly parsed in situations where the title included
+  more than one four-digit numbers.
+
 ## License
 
 MIT
